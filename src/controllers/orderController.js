@@ -117,7 +117,9 @@ export async function getOrderById(req, res, next) {
   }
 }
 
+
 // Actualizar el estado de un pedido
+
 export async function updateOrder(req, res, next) {
   try {
     const { status } = req.body

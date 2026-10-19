@@ -42,7 +42,6 @@ export async function protect(req, res, next) {
   }
 }
 
-// Permitir acciones solamente a administradores
 export function adminOnly(req, res, next) {
   if (req.user?.role !== 'admin') {
     return res.status(403).json({
