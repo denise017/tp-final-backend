@@ -1,4 +1,3 @@
-
 import mongoose from 'mongoose'
 import Book from '../models/Book.js'
 
@@ -24,7 +23,7 @@ export async function getBookById(req, res, next) {
 
     if (!mongoose.isValidObjectId(id)) {
       return res.status(400).json({
-        mensaje: 'El ID del libro no es válido'
+        mensaje: 'ID incorrecto'
       })
     }
 
@@ -32,7 +31,7 @@ export async function getBookById(req, res, next) {
 
     if (!book) {
       return res.status(404).json({
-        mensaje: 'No encontramos el libro solicitado'
+        mensaje: 'Libro no encontrado'
       })
     }
 
@@ -48,11 +47,6 @@ export async function getBookById(req, res, next) {
 // Agregar un libro
 export async function createBook(req, res, next) {
   try {
-    if (!req.body || typeof req.body !== 'object' || Array.isArray(req.body)) {
-  return res.status(400).json({
-    mensaje: 'Tenés que enviar los datos del libro en formato JSON'
-  })
-}
 
     const {
       title,
@@ -90,21 +84,15 @@ export async function updateBook(req, res, next) {
   try {
     const { id } = req.params
 
-    if (!req.body || typeof req.body !== 'object' || Array.isArray(req.body)) {
-  return res.status(400).json({
-    mensaje: 'Tenés que enviar los datos que querés modificar'
-  })
-}
-
-if (Object.keys(req.body).length === 0) {
-  return res.status(400).json({
-    mensaje: 'No enviaste ningún campo para modificar'
-  })
-}
+    if (!req.body || Object.keys(req.body).length === 0) {
+        return res.status(400).json({
+            mensaje: 'No enviaste nada para modificar'
+        })
+    }
 
     if (!mongoose.isValidObjectId(id)) {
       return res.status(400).json({
-        mensaje: 'El ID del libro no es válido'
+        mensaje: 'ID incorrecto'
       })
     }
 
@@ -124,7 +112,7 @@ if (Object.keys(req.body).length === 0) {
 
     if (!book) {
       return res.status(404).json({
-        mensaje: 'No encontramos el libro solicitado'
+        mensaje: 'Libro no encontrado'
       })
     }
 
@@ -152,7 +140,7 @@ export async function deleteBook(req, res, next) {
 
     if (!mongoose.isValidObjectId(id)) {
       return res.status(400).json({
-        mensaje: 'El ID del libro no es válido'
+        mensaje: 'ID incorrecto'
       })
     }
 
@@ -160,7 +148,7 @@ export async function deleteBook(req, res, next) {
 
     if (!book || !book.isActive) {
       return res.status(404).json({
-        mensaje: 'No encontramos el libro solicitado'
+        mensaje: 'Libro no encontrado'
       })
     }
 
@@ -168,7 +156,7 @@ export async function deleteBook(req, res, next) {
     await book.save()
 
     res.status(200).json({
-      mensaje: 'Libro eliminado del catálogo correctamente'
+      mensaje: 'Libro eliminado del caalogo correctamente'
     })
   } catch (error) {
     next(error)

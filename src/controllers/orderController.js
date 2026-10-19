@@ -32,7 +32,7 @@ export async function createOrder(req, res, next) {
 
       if (item.quantity > book.stock) {
         return res.status(400).json({
-          mensaje: `No hay suficiente stock`
+          mensaje: 'No hay suficiente stock'
         })
       }
 

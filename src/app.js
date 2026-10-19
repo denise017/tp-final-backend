@@ -28,6 +28,7 @@ app.use((req, res) => {
     mensaje: 'La ruta solicitada no existe'
   })
 })
+
 app.use((error, req, res, next) => {
   if (error.status === 400 && error.type === 'entity.parse.failed') {
     return res.status(400).json({
@@ -45,5 +46,9 @@ app.use((error, req, res, next) => {
       mensaje: 'El correo ya esta en uso'
     })
   }
+
+  res.status(500).json({
+    mensaje: 'Error interno del servidor'
+  })
 })
 export default app
