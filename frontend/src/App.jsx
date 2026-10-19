@@ -90,6 +90,11 @@ function App() {
           </>
         )}
       </main>
+      <footer className="footer">
+        <h3>MIDNIGHT BOOKS</h3>
+        <span>© 2026 Midnight Books</span>
+        </footer>
+
     </>
   )
 }
