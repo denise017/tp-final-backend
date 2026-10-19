@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'
 import './Cart.css'
 
@@ -15,7 +16,7 @@ function Cart({ usuario, cartUpdate }) {
 
       const token = localStorage.getItem('token')
 
-      const response = await fetch('http://localhost:3000/api/cart', {
+      const response = await fetch('/api/cart', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -35,7 +36,7 @@ function Cart({ usuario, cartUpdate }) {
   async function handleRemove(bookId) {
     const token = localStorage.getItem('token')
 
-    const response = await fetch(`http://localhost:3000/api/cart/items/${bookId}`, {
+    const response = await fetch(`/api/cart/items/${bookId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -50,7 +51,7 @@ function Cart({ usuario, cartUpdate }) {
   async function handleOrder() {
     const token = localStorage.getItem('token')
 
-    const response = await fetch('http://localhost:3000/api/orders', {
+    const response = await fetch('/api/orders', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`

@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     async function getBooks() {
-      const response = await fetch('http://localhost:3000/api/books')
+      const response = await fetch('/api/books')
       const data = await response.json()
       setBooks(data.libros)
     }
@@ -39,7 +39,7 @@ function App() {
 
     if (!token) return
 
-    const response = await fetch('http://localhost:3000/api/cart/items', {
+    const response = await fetch('/api/cart/items', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

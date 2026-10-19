@@ -1,3 +1,7 @@
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+
 import express from 'express'
 import cors from 'cors'
 import authRoutes from './routes/authRoutes.js'
@@ -22,14 +26,19 @@ app.use('/api/orders', orderRoutes)
 
 app.use('/api/users', userRoutes)
 
-app.get('/', (req, res) => {
-  res.json({ mensaje: 'Bienvenido a Midnight Books API' })
+app.use('/api', (req, res) => {
+  res.status(404).json({ mensaje: 'La ruta solicitada no existe' })
 })
 
-app.use((req, res) => {
-  res.status(404).json({
-    mensaje: 'La ruta solicitada no existe'
-  })
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const frontendPath = path.join(__dirname, '../frontend/dist')
+
+app.use(express.static(frontendPath))
+
+app.get('/{*splat}', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'))
 })
 
 app.use((error, req, res, next) => {
