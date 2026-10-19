@@ -1,6 +1,6 @@
 import './Navbar.css'
 
-function Navbar() {
+function Navbar({ usuario, onLogout }) {
   return (
     <header className="navbar">
       <nav className="navbar-content">
@@ -15,16 +15,27 @@ function Navbar() {
         </a>
 
         <div className="navbar-links navbar-right">
-          <a href="#registro">Crea una cuenta</a>
 
-          <a
-            href="#login"
-            className="navbar-icon"
-            aria-label="Iniciar sesión"
-            title="Iniciar sesión"
-          >
-            <img src="/images/icons/user.svg" alt="" />
-          </a>
+           {usuario ? (
+            <>
+            <span>Bienvenido, {usuario.name}</span>
+            <button className="navbar-logout" onClick={onLogout}>
+                Cerrar sesión
+                </button>
+                </>
+                ) : (
+                <>
+                <a href="#registro">Registrarse</a>
+                <a
+                href="#login"
+                className="navbar-icon"
+                aria-label="Iniciar sesión"
+                title="Iniciar sesión"
+                >
+                    <img src="/images/icons/user.svg" alt="" />
+                    </a>
+                    </>
+                )}
 
           <a
             href="#carrito"

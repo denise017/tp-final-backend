@@ -183,3 +183,31 @@ cart.items.pull(item._id)
     next(error)
   }
 }
+// Consultar un carrito por ID
+export async function getCartById(req, res, next) {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(400).json({
+        mensaje: 'ID incorrecto'
+      })
+    }
+
+    const cart = await Cart.findOne({
+      _id: req.params.id,
+      user: req.user._id
+    }).populate('items.book', 'title author price cover stock')
+
+    if (!cart) {
+      return res.status(404).json({
+        mensaje: 'Carrito no encontrado'
+      })
+    }
+
+    res.status(200).json({
+      mensaje: 'Carrito encontrado',
+      carrito: cart
+    })
+  } catch (error) {
+    next(error)
+  }
+}

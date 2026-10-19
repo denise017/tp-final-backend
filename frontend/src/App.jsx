@@ -58,7 +58,7 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar usuario={usuario} onLogout={handleLogout}/>
 
       <main>
         <section className="hero" id="inicio">

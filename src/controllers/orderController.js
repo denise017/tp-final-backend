@@ -116,3 +116,54 @@ export async function getOrderById(req, res, next) {
     next(error)
   }
 }
+
+// Actualizar el estado de un pedido
+export async function updateOrder(req, res, next) {
+  try {
+    const { status } = req.body
+
+    if (!['pending', 'confirmed', 'cancelled'].includes(status)) {
+      return res.status(400).json({
+        mensaje: 'Estado de pedido incorrecto'
+      })
+    }
+
+    const order = await Order.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    )
+
+    if (!order) {
+      return res.status(404).json({
+        mensaje: 'Pedido no encontrado'
+      })
+    }
+
+    res.status(200).json({
+      mensaje: 'Pedido actualizado correctamente',
+      pedido: order
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+// Eliminar un pedido
+export async function deleteOrder(req, res, next) {
+  try {
+    const order = await Order.findByIdAndDelete(req.params.id)
+
+    if (!order) {
+      return res.status(404).json({
+        mensaje: 'Pedido no encontrado'
+      })
+    }
+
+    res.status(200).json({
+      mensaje: 'Pedido eliminado correctamente'
+    })
+  } catch (error) {
+    next(error)
+  }
+}
